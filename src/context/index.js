@@ -9,8 +9,12 @@ const GifProvider = (props) => {
   const [searchGif, setSearchGif] = useState("programming");
   const [gifList, setGifList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(true);
 
-  const handleSearchGif = (event) => setSearchGif(event.target.value);
+  const handleSearchGif = (event) => {
+    setIsFormSubmitted(false);
+    setSearchGif(event.target.value);
+  };
 
   const fetchGif = async () => {
     try {
@@ -32,6 +36,7 @@ const GifProvider = (props) => {
   const handleSubmitSearchGif = (event) => {
     event.preventDefault();
     fetchGif();
+    setIsFormSubmitted(true);
   };
 
   useEffect(() => {
@@ -44,6 +49,7 @@ const GifProvider = (props) => {
         gifList,
         searchGif,
         isLoading,
+        isFormSubmitted,
         handleSearchGif,
         handleSubmitSearchGif,
       }}
